@@ -1,0 +1,45 @@
+<div class="top">
+  <%= image_tag("ramen_irasuto", class: "top-img") %>
+  </div>
+
+<div class="sinki-toukou-zentai">
+
+<h1</h1>
+<h3>新規投稿ページ</h3>
+<%= form_for @posts do |f| %>
+    <div class="field">
+    <%= f.label :店名 %>
+    <%= f.text_field :name, :size => 30 %>
+  </div>
+  <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+  </div>
+  <div class="field">
+    <%= f.label :値段 %>
+    <%= f.text_field :nedan, :size => 30 %>
+    <%= f.select :category, [["醤油", "syouyu"], ["塩", "sio"], ["味噌", "miso"], ["とんこつ", "tonkotu"], ["家系", "iekei"], ["二郎", "zirou"]], include_blank: "種類" %>
+   
+    <h5>総合評価</h5>
+   <div class="post_form">
+    <%= f.radio_button :overall, 5 ,id: 'star1'%>
+    <label for="star1"><span class="text">最高</span>★</label>
+
+    <%= f.radio_button :overall, 4 ,id: 'star2'%>
+    <label for="star2"><span class="text">良い</span>★</label>
+
+    <%= f.radio_button :overall, 3 ,id: 'star3'%>
+    <label for="star3"><span class="text">普通</span>★</label>
+
+    <%= f.radio_button :overall, 2 ,id: 'star4'%>
+    <label for="star4"><span class="text">悪い</span>★</label>
+
+    <%= f.radio_button :overall, 1 ,id: 'star5'%>
+    <label for="star5"><span class="text">最悪</span>★</label>
+ </div>
+  </div>
+  <%= f.submit "投稿する" %>
+  <% end %>
+  
+  <%= link_to "一覧に戻る", posts_path %>
+  </div>

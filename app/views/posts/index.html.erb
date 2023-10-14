@@ -1,0 +1,67 @@
+<div class="top">
+  <%= image_tag("ramen_irasuto", class: "top-img") %>
+  </div>
+
+<div class="ichiran-zentai">
+
+<h1>index.</h1>
+<h3>一覧ページ</h3>
+<h3>投稿を検索</h3>
+ <%= form_tag({controller:"posts",action:"index"}, method: :get) do %>
+   <%= text_field_tag :search %>
+   <%= submit_tag '検索する'  %>
+<% end %>
+
+
+<%= link_to "醤油ラーメン", posts_syouyu_path %>
+<%= link_to "塩ラーメン", posts_sio_path %>
+<%= link_to "味噌ラーメン", posts_miso_path %>
+<%= link_to "とんこつラーメン", posts_tonkotu_path %>
+<%= link_to "家系ラーメン", posts_iekei_path %>
+<%= link_to "二郎系ラーメン", posts_zirou_path %>
+<div class="post-container">
+  <% @posts.each do |t| %>
+    
+     <div class="post">
+     <div class=ichiran-oya>
+     
+     <%= image_tag t.image_url, size: "250x200" if t.image? %>
+     
+     </div>
+     
+     <div class="ichiran-zentai2">
+    <%= t.user.name %>
+      <%= t.name %>
+      <%= t.nedan %>
+      <div>
+      <h2>総合評価：
+      <span class="star-rating">
+       <span class="star-rating-front" style="width: <%= getPercent(t.overall) %>%;">★★★★★</span>
+       <span class="star-rating-back">★★★★★</span>
+      </span> 
+      </h2>
+      </div>
+
+      <%= link_to "詳細へ", post_path(t.id) %>
+    
+    <% if user_signed_in? %>
+      <% if current_user.already_liked?(t) %>
+          <%= button_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
+              <p>いいねを取り消す</p><%= t.likes.count %>
+          <% end %>
+      <% else %>
+          <%= button_to post_likes_path(id: t.id, post_id: t.id), method: :post do %>
+              <p>いいね</p><%= t.likes.count %>
+          <% end %>
+      <% end %>
+  <% else %>
+      <p>いいねの数 = </p><%= t.likes.count %>
+      <% end %>
+    <%= link_to "編集する", edit_post_path(t.id) %>
+
+    <%= button_to "削除する", post_path(t.id), method: :delete %>
+  <% end %>
+  </div>
+  </div>
+  </div>
+ 

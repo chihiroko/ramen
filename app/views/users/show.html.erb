@@ -1,0 +1,35 @@
+<div class="top">
+  <%= image_tag("ramen_irasuto", class: "top-img") %>
+  </div>
+
+<div class="mypage-zentai">
+
+
+<div class="mypage1">
+<h1>My Page</h1>
+<p>名前 : <%= @user.name %></p>
+<p>メールアドレス : <%= @user.email %></p>
+<p>プロフィール : <%= @user.profile %></p>
+
+<% if current_user.id == @user.id %>
+  <%= link_to "編集する", edit_user_registration_path %>
+<% end %>
+</div>
+
+<div class="mypage2">
+<h2>ユーザーの投稿一覧</h2>
+<% @user.posts.each do |t| %>
+  <%= t.user.name %>
+  <%= t.name %>
+<% end %>
+</div>
+
+<div class="mypage3">
+<h2>ユーザーがいいねした投稿一覧</h2>
+<% @user.liked_posts.each do |t| %>
+  <%= t.user.name %>
+  <%= t.name %>
+<% end %>
+</div>
+<%= image_tag @user.image_url, size: "250x200" if @user.image? %>
+</div>

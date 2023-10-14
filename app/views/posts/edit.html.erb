@@ -1,0 +1,7 @@
+<%= form_for @post do |f| %>
+    <%= f.label :nedan %>
+<%= f.text_field :nedan, :size => 140 %>
+<%= f.label :name %>
+<%= f.text_field :name, :size => 140 %> 
+    <%= f.submit "編集する" %>
+  <% end %>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ramen</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+  </head>
+
+  <body>
+  
+  <header>
+  <div class="header-logo">
+  
+  </div>
+  <div class="openbtn"><span></span><span></span><span></span></div>
+  <nav id="g-nav">
+    <div id="g-nav-list">  
+      <ul>
+        <li>
+          <a href="<%= posts_toppage_path %>">トップページ</a> 
+        </li>  
+        <li>
+          <a href="<%= new_post_path %>">新規投稿</a> 
+        </li>  
+        <li>
+          <a href="<%= posts_path %>">種類別で探す</a> 
+        </li>  
+          
+        <% if user_signed_in? %>
+          <li>
+          <a href="<%= user_path(current_user.id) %>">マイページ</a> 
+          </li>
+          <li><%= button_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+          
+        <% else %>
+          <li><%= link_to "新規登録", new_user_registration_path %></li>
+          <li><%= link_to "ログイン", new_user_session_path %></li>
+        <% end %> 
+      </ul>  
+    </div>
+  </nav>
+</header>
+ <main>
+  <%= yield %>
+ </main>
+ <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+ <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+</body>
+ 
+</html>
+
+<script>
+$(".openbtn").click(function () {
+ $(this).toggleClass("active");
+ $("#g-nav").toggleClass("panelactive");
+});
+$("#g-nav a").click(function () {
+ $(".openbtn").removeClass("active");
+ $("#g-nav").removeClass("panelactive");
+});
+</script>
